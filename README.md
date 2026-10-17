@@ -1,6 +1,10 @@
 # Cozy Palace Hotel and Restaurant
 
-Next.js prototype for COSC 75 Activity 6. The first increment covers hotel reservation CRUD, guarded database functions, customer/staff sign-in integration and an administrator activity viewer. Dining, payment collection/history, financial reports and reminders are November launch work; see [the roadmap](docs/roadmap.md).
+A hotel reservation prototype built with Next.js, TypeScript, Tailwind CSS, and Supabase/PostgreSQL. Customers can manage reservation drafts, staff can progress bookings, and administrators can view attributed activity.
+
+## Current status
+
+This is development software, not a live booking service. Dining, payment collection, purchase history, and financial report generation are not implemented. Do not use the fictional inventory for real reservations.
 
 ## Run the interface
 
@@ -63,7 +67,7 @@ The test creates the schema/fixtures and sends overlapping submissions from two 
 
 ### Connected browser test
 
-After setting real development Supabase configuration, provide `TEST_CUSTOMER_EMAIL` and `TEST_CUSTOMER_PASSWORD` for a disposable account and run `npm run test:e2e:connected`. Optionally set `TEST_APP_URL` to a Vercel Preview URL. This creates, reloads, edits and deletes an unpaid draft. It cannot run without that infrastructure. Verify role isolation and two-user session switching manually as listed in [the demo checklist](docs/demo/README.md).
+After setting real development Supabase configuration, provide `TEST_CUSTOMER_EMAIL` and `TEST_CUSTOMER_PASSWORD` for a disposable account and run `npm run test:e2e:connected`. Optionally set `TEST_APP_URL` to a Vercel Preview URL. This creates, reloads, edits and deletes an unpaid draft. It cannot run without that infrastructure. Also verify that customers cannot access another customer’s reservations, staff actions require an employee role, and activity logs require an administrator role.
 
 ## Database design
 
@@ -79,8 +83,12 @@ After setting real development Supabase configuration, provide `TEST_CUSTOMER_EM
 
 Import this repository and select the Next.js preset. Use `npm run build` and framework-managed output. Set the two public configuration values separately for Preview and Production, each pointing to its intended database. Set Auth redirect allowlists for the exact Preview/production URLs. No `dist`, static export or blanket SPA rewrite is needed.
 
-This branch is not a deployed release. A configured Preview, hosted Auth checks and complete Activity 6 evidence are required before calling it demo-ready.
+This branch is not a deployed release. A configured Preview, hosted authentication tests, and native database concurrency checks are required before operational use.
 
 ### Prototype date policy
 
 This increment accepts future check-in dates only. Same-day stays are rejected because the proposed pending-hold model ends at midnight on the arrival date. Confirm real check-in times and same-day handling before the production launch; do not advertise this prototype as supporting same-day booking.
+
+## Contributing
+
+Create a feature branch and open a pull request with a clear description and relevant verification results. Keep credentials, customer information, and private planning documents out of commits. Run the checks above before requesting review.
